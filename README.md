@@ -78,8 +78,11 @@ O fluxo de dados inicia na telemetria de sensores IoT e inversores GoodWe, sendo
 ## ▶️ Como Executar
 
 Para testar a infraestrutura de backend desenvolvida nesta Sprint:
+# 1. Clone o repositório
+git clone https://github.com/BrennoGomes1/ev-smart-hub.git
 
-1. **Clone o repositório:**
-```bash
-git clone [https://github.com/BrennoGomes1/ev-smart-hub.git](https://github.com/BrennoGomes1/ev-smart-hub.git)
+# 2. Acesse a pasta do projeto
 cd ev-smart-hub
+
+# 3. Instale as dependências necessárias
+pip install fastapi uvicorn
