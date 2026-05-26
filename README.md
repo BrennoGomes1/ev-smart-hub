@@ -1,11 +1,11 @@
-# ⚡ EV Smart Hub
+#  EV Smart Hub
 ### Plataforma Inteligente de Gestão de Eletropostos com Energia Renovável
 
 > **EV Challenge 2026 · FIAP × GoodWe · Sprint 1 — Apresentação do Projeto Sustentável**
 
 ---
 
-## 🚀 Sobre o Projeto
+##  Sobre o Projeto
 
 O **EV Smart Hub** é uma plataforma de gestão inteligente de eletropostos que integra dados de inversores solares GoodWe, sensores IoT e algoritmos de Machine Learning para otimizar o carregamento de veículos elétricos, priorizar energia fotovoltaica e reduzir a pegada de carbono da mobilidade elétrica urbana.
 
@@ -24,14 +24,14 @@ O **EV Smart Hub** é uma plataforma de gestão inteligente de eletropostos que 
 
 ---
 
-## 🔍 Problema & Justificativa
+##  Problema & Justificativa
 
 ### O cenário atual
 A rápida adoção de veículos elétricos no Brasil expõe uma lacuna crítica: **os eletropostos existentes carecem de gestão inteligente**. Isso resulta em desperdício de energia solar gerada, ausência de monitoramento em tempo real e emissões desnecessárias de CO₂ por depender da rede convencional em horários de pico.
 
 ---
 
-## 💡 Proposta de Solução
+##  Proposta de Solução
 
 O **EV Smart Hub** atua em quatro frentes principais:
 1. **Integração GoodWe:** Conexão via API SEMS para priorização de energia solar fotovoltaica.
@@ -39,7 +39,7 @@ O **EV Smart Hub** atua em quatro frentes principais:
 3. **Dashboard:** Gestão em tempo real com indicadores de sustentabilidade e eficiência energética.
 ---
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 ### Backend & Core (Sprint 1)
 - **Python 3.12**: Linguagem robusta para processamento de dados e IA.
@@ -49,7 +49,7 @@ O **EV Smart Hub** atua em quatro frentes principais:
 
 ---
 
-## 🌱 Sustentabilidade & Energias Renováveis
+##  Sustentabilidade & Energias Renováveis
 
 Nossa solução é fundamentada na **Hierarquia da Eficiência Energética (ISO 50001)**:
 - **Nível 1:** Eliminação do desperdício através do carregamento inteligente.
@@ -58,13 +58,13 @@ Nossa solução é fundamentada na **Hierarquia da Eficiência Energética (ISO 
 
 ---
 
-## 🏗️ Arquitetura da Solução
+##  Arquitetura da Solução
 
 O fluxo de dados inicia na telemetria de sensores IoT e inversores GoodWe, sendo processado pelo **FastAPI**, que armazena as métricas no **SQLite** e disponibiliza as informações em tempo real para o Dashboard e para o motor de IA.
 
 ---
 
-## 🗓️ Roadmap
+##  Roadmap
 
 | Sprint | Período | Entregas |
 |--------|---------|---------|
@@ -75,7 +75,7 @@ O fluxo de dados inicia na telemetria de sensores IoT e inversores GoodWe, sendo
 
 ---
 
-## ▶️ Como Executar
+##  Como Executar
 
 Para testar a infraestrutura de backend desenvolvida nesta Sprint:
 # 1. Clone o repositório
