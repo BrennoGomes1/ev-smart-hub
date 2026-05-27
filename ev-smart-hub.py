@@ -1,3 +1,30 @@
+"""
+╔══════════════════════════════════════════════════════════════════════╗
+║          EV Smart Hub — Sprint 2: Prova de Conceito Funcional        ║
+║          FIAP × GoodWe · EV Challenge 2026 · Turma 1CCPX             ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+Equipe:
+  - Brenno F. G. dos Santos  (RM 570525)
+  - Eduardo Moreira Silva     (RM 569923)
+  - Enzo Stahal Freitas       (RM 569001)
+  - Matheus Bruno de Lima     (RM 572944)
+
+Descrição:
+  Protótipo funcional que simula:
+  1. Telemetria de inversor solar GoodWe (geração fotovoltaica)
+  2. Sensores de 3 eletropostos (estado, demanda, SoC do VE)
+  3. Motor de decisão: prioriza energia solar, redireciona excedente
+  4. API REST (FastAPI) expondo os dados em tempo real
+  5. Log de sustentabilidade: CO₂ evitado, % de carga renovável
+
+Execução:
+  pip install fastapi uvicorn
+  python ev-smart-hub.py
+
+Acesse: http://localhost:8000/docs
+"""
+
 import random
 import math
 import time
@@ -6,7 +33,7 @@ import sqlite3
 from datetime import datetime, timezone
 from typing import Optional
 
-
+# FastAPI 
 try:
     import uvicorn
     from fastapi import FastAPI
@@ -15,9 +42,10 @@ try:
 except ImportError:
     HAS_API = False
     print("[AVISO] FastAPI/uvicorn não encontrado. Rodando apenas simulação no terminal.")
-    print(" Instale com: pip install fastapi uvicorn\n")
+    print("        Instale com: pip install fastapi uvicorn\n")
 
 
+# CONSTANTES DE SUSTENTABILIDADE
 FATOR_EMISSAO_GRID_KG_KWH = 0.0817   # MCTIC 2023: fator médio da rede brasileira
 POTENCIA_MAX_SOLAR_KW     = 15.0      # Inversor GoodWe SDT15K simulado
 POTENCIA_MAX_CHARGER_KW   = 7.4       # Carregador AC Wallbox típico (32A, 230V)
@@ -57,7 +85,7 @@ def init_db() -> sqlite3.Connection:
 DB = init_db()
 
 
-# SIMULADOR DE INVERSOR SOLAR GOODWE (curva diária realista)
+# SIMULADOR DE INVERSOR SOLAR GOODWE 
 class GoodWeInverterSimulator:
     """
     Simula a telemetria de um inversor GoodWe SDT15K.
@@ -70,7 +98,7 @@ class GoodWeInverterSimulator:
         self.model      = "GoodWe SDT15K-ET"
         self.capacity   = POTENCIA_MAX_SOLAR_KW
         self.today_kwh  = 0.0
-        self.total_kwh  = random.uniform(1200, 4500)  # histórico fictício
+        self.total_kwh  = random.uniform(1200, 4500) 
 
     def get_power_kw(self) -> float:
         """
@@ -95,8 +123,8 @@ class GoodWeInverterSimulator:
             "power_kw"    : power,
             "today_kwh"   : round(self.today_kwh, 3),
             "total_kwh"   : round(self.total_kwh, 3),
-            "temperature" : round(random.uniform(28, 55), 1),   
-            "efficiency"  : round(random.uniform(96.5, 98.5), 2) 
+            "temperature" : round(random.uniform(28, 55), 1),   # °C IGBT
+            "efficiency"  : round(random.uniform(96.5, 98.5), 2) # %
         }
 
 
@@ -111,7 +139,7 @@ class EVCharger:
     def __init__(self, charger_id: int):
         self.id      = charger_id
         self.status  = "IDLE"
-        self.soc     = 0.0    # Estado de Carga (%)
+        self.soc     = 0.0    # Estado da bateria (%)
         self.power   = 0.0    # Potência sendo entregue (kW)
         self.source  = "NONE" # SOLAR | GRID | MIXED | NONE
         self._timer  = 0
@@ -155,7 +183,7 @@ class EVCharger:
                 self.source = "MIXED"
                 return demanded
             else:
-                self.power  = demanded * 0.7  # horário de pico
+                self.power  = demanded * 0.7  # throttle na rede em horário de pico
                 self.source = "GRID"
                 return self.power
         else:
@@ -289,6 +317,7 @@ def simulation_loop():
 
 
 # API REST 
+
 if HAS_API:
     app = FastAPI(
         title="EV Smart Hub API",
@@ -305,7 +334,7 @@ if HAS_API:
         return """
         <html><head><title>EV Smart Hub</title></head>
         <body style="font-family:monospace;background:#0d1117;color:#39d353;padding:2rem">
-        <h1> EV Smart Hub — Sprint 2</h1>
+        <h1>⚡ EV Smart Hub — Sprint 2</h1>
         <p>API em operação. Acesse <a href="/docs" style="color:#58a6ff">/docs</a> para a documentação interativa.</p>
         <p>Endpoints principais:</p>
         <ul>
@@ -369,7 +398,7 @@ if HAS_API:
 # ENTRY POINT
 if __name__ == "__main__":
     print("=" * 70)
-    print("    EV Smart Hub — Sprint 2: Prova de Conceito Funcional")
+    print("  ⚡  EV Smart Hub — Sprint 2: Prova de Conceito Funcional")
     print("  FIAP × GoodWe · EV Challenge 2026 · Turma 1CCPX")
     print("=" * 70)
     print(f"  Inversor simulado : GoodWe SDT15K ({POTENCIA_MAX_SOLAR_KW} kW)")
